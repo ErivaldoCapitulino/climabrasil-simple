@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClimaBrasil | Monitoramento Meteorológico Inteligente</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon"><i class="fas fa-cloud-sun-rain"></i></span>
+                <h1 class="logo-text">ClimaBrasil</h1>
+            </div>
+            <p class="tagline">Monitoramento meteorológico inteligente e prevenção de enchentes</p>
+        </header>
+
+        <main class="main-content">
+            <!-- Seção de Dados Meteorológicos -->
+            <section class="weather-section">
+                <div class="card">
+                    <h2 class="card-title">
+                        <i class="fas fa-location-crosshairs"></i>
+                        Consulta Meteorológica
+                    </h2>
+
+                    <form id="weatherForm">
+                        <div class="form-group">
+                            <label for="citySelect" class="form-label">Selecione uma cidade</label>
+                            <select id="citySelect" class="form-control" required>
+                                <option value="">-- Selecione --</option>
+                                {% for city in cities %}
+                                <option value="{{ city }}">{{ city }}</option>
+                                {% endfor %}
+                                <option value="other">Outra cidade</option>
+                            </select>
+                        </div>
+
+                        <div id="otherCityGroup" class="form-group" style="display: none;">
+                            <label for="otherCity" class="form-label">Nome da cidade</label>
+                            <input type="text" id="otherCity" class="form-control" placeholder="Ex: Belo Horizonte">
+                        </div>
+
+                        <button type="submit" id="weatherBtn" class="btn btn-primary">
+                            <i class="fas fa-search"></i> Buscar Dados
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Resultados Meteorológicos -->
+                <div id="weatherResult" class="weather-result hidden">
+                    <div class="card">
+                        <div class="weather-header">
+                            <h3 id="cityName" class="weather-city"></h3>
+                            <div class="weather-meta">
+                                <span id="weatherDate"></span>
+                                <span id="weatherAlert" class="alert-badge"></span>
+                            </div>
+                        </div>
+
+                        <div class="weather-grid">
+                            <div class="weather-card">
+                                <div class="weather-icon"><i class="fas fa-thermometer-half"></i></div>
+                                <div class="weather-label">Temperatura</div>
+                                <div id="temperature" class="weather-value"></div>
+                            </div>
+
+                            <div class="weather-card">
+                                <div class="weather-icon"><i class="fas fa-temperature-low"></i></div>
+                                <div class="weather-label">Sensação Térmica</div>
+                                <div id="feelsLike" class="weather-value"></div>
+                            </div>
+
+                            <div class="weather-card">
+                                <div class="weather-icon"><i class="fas fa-cloud"></i></div>
+                                <div class="weather-label">Condição</div>
+                                <div id="condition" class="weather-value"></div>
+                            </div>
+
+                            <div class="weather-card">
+                                <div class="weather-icon"><i class="fas fa-wind"></i></div>
+                                <div class="weather-label">Vento</div>
+                                <div id="wind" class="weather-value"></div>
+                            </div>
+
+                            <div class="weather-card">
+                                <div class="weather-icon"><i class="fas fa-tint"></i></div>
+                                <div class="weather-label">Umidade</div>
+                                <div id="humidity" class="weather-value"></div>
+                            </div>
+
+                            <div class="weather-card">
+                                <div class="weather-icon"><i class="fas fa-cloud-rain"></i></div>
+                                <div class="weather-label">Precipitação</div>
+                                <div id="precipitation" class="weather-value"></div>
+                            </div>
+                        </div>
+
+                        <div class="weather-recommendations">
+                            <h4 class="recommendations-title">
+                                <i class="fas fa-exclamation-circle"></i>
+                                Recomendações
+                            </h4>
+                            <ul id="actionsList" class="recommendations-list"></ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção do Chat -->
+            <section class="chat-section">
+                <div class="card">
+                    <h2 class="card-title">
+                        <i class="fas fa-robot"></i>
+                        Assistente Climático
+                    </h2>
+
+                    <div class="chat-container">
+                        <div id="chatMessages" class="chat-messages">
+                            <!-- Mensagens serão adicionadas aqui via JavaScript -->
+                        </div>
+
+                        <div id="newMessageIndicator" class="new-message-indicator hidden">
+                            <i class="fas fa-chevron-down"></i> Novas mensagens
+                        </div>
+
+                        <form id="chatForm" class="chat-form">
+                            <input type="text" id="chatInput" class="chat-input" placeholder="Pergunte sobre os dados meteorológicos..." disabled>
+                            <button type="submit" id="chatSubmit" class="chat-submit" disabled>
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="#" class="footer-link">Termos de Uso</a>
+                <a href="#" class="footer-link">Política de Privacidade</a>
+                <a href="#" class="footer-link">Contato</a>
+            </div>
+            <p>© 2023 ClimaBrasil. Todos os direitos reservados.</p>
+            <p><i class="fas fa-shield-alt"></i> Em caso de emergência, contate a Defesa Civil: 199</p>
+        </footer>
+    </div>
+
+    <script src="/static/js/script.js"></script>
+</body>
+
+</html>
